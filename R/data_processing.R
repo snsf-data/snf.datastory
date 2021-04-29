@@ -85,3 +85,21 @@ translate_research_area <- function(research_area = "",
   }
   string
 }
+
+#' Print numbers as characters with language specific format
+#'
+#' Function to format a given number with a specified language-specific
+#' formatting (thousand separator and decimal separator)
+#' @param x The numeric to be transformed
+#' @param lang Output format language, available is "en", "de", or "fr"
+#' @export
+#' @examples
+#'  translate_research_area("SSH", target_lang = "de", abbr_or_long = "long")
+print_num <- function(x, lang = "en") {
+  if (lang == "en")
+    prettyNum(x, big.mark = ",", decimal.mark = ".")
+  else if (lang == "de")
+    prettyNum(x, big.mark = "'", decimal.mark = ",")
+  else if (lang == "fr")
+    prettyNum(x, big.mark = " ", decimal.mark = ",")
+}
