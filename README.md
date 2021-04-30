@@ -14,3 +14,7 @@ install.packages("devtools")
 # Then install snf.datastory
 devtools::install_github("snsf-data/snf.datastory")
 ```
+
+## License
+
+MIT © Swiss National Science Foundation
