@@ -3,15 +3,15 @@
 \docType{data}
 \name{datastory_scheme_green_seq}
 \alias{datastory_scheme_green_seq}
-\title{(experimental) The datastory SNSF scheme (green seq)}
+\title{SNSF greens (CD 2021)}
 \format{
-An object of class \code{character} of length 4.
+An object of class \code{character} of length 2.
 }
 \usage{
 datastory_scheme_green_seq
 }
 \description{
-The iterativ interpretation of the YAAY scheme for the data stories.
+Colors from the new Corporate Design of 2021.
 }
 \examples{
  # TODO

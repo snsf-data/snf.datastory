@@ -9,12 +9,3 @@ get_ggiraph_tooltip_css()
 \description{
 Get uniform tooltip CSS style for ggiraph graphs.
 }
-\examples{
- ggiraph::girafe(
- ggobj = ggplot(mtcars),
- options = list(
-   ggiraph::opts_tooltip(
-     css = get_ggiraph_tooltip_css()
-   )
- ))
-}

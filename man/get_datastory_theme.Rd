@@ -2,7 +2,7 @@
 % Please edit documentation in R/plotting.R
 \name{get_datastory_theme}
 \alias{get_datastory_theme}
-\title{(experimental) Get the ggplot2 theme for data story plots}
+\title{Get the ggplot2 theme for data story plots}
 \usage{
 get_datastory_theme(
   legend_position = "top",
@@ -16,21 +16,26 @@ get_datastory_theme(
 )
 }
 \arguments{
-\item{legend_position}{TODO}
+\item{legend_position}{Choose the position of the legend in regards to your
+plot.}
 
-\item{legend_margin}{TODO}
+\item{legend_margin}{ggplot \code{legend.margin} theme element.}
 
 \item{gridline_axis}{TODO}
 
-\item{title_axis}{TODO}
+\item{title_axis}{Which axis titles should be shown, default X and Y:
+\code{c("x", "y")}}
 
-\item{text_axis}{TODO}
+\item{text_axis}{Which axis text should be shown, default X and Y:
+\code{c("x", "y")}}
 
-\item{tick_axis}{TODO}
+\item{tick_axis}{On which axis the axis ticks should be displayed.}
 
-\item{remove_plot_margin}{TODO}
+\item{remove_plot_margin}{Whether all margin around the plot should be
+removed. Default \code{FALSE}.}
 
-\item{legend_key_size}{TODO}
+\item{legend_key_size}{ggplot legend.key.width and legend.key.height theme
+item: vector with first element width (mm) and second element height (mm).}
 }
 \description{
 The data plot theme is specially tailored for the clean look of the data

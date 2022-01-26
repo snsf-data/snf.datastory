@@ -9,6 +9,7 @@
 #' @param Whether the output string should be an abbreviation or the whole, long
 #' name (possible values: "abbr" or "long")
 #' @export
+#' @importFrom dplyr case_when
 #' @examples
 #'  translate_research_area("SSH", target_lang = "de", abbr_or_long = "long")
 translate_research_area <- function(research_area = "",

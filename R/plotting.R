@@ -1,4 +1,4 @@
-#' (experimental) Get the ggplot2 theme for data story plots
+#' Get the ggplot2 theme for data story plots
 #'
 #' The data plot theme is specially tailored for the clean look of the data
 #' stories. By default, no axis titles and no grid lines are included, they can
@@ -17,6 +17,7 @@
 #' @param legend_key_size ggplot legend.key.width and legend.key.height theme
 #' item: vector with first element width (mm) and second element height (mm).
 #' @export
+#' @importFrom ggplot2 theme
 #' @examples
 #'  # TODO
 get_datastory_theme <- function(legend_position = "top",
@@ -214,14 +215,14 @@ snsf_violet <- c("#9D90B9", "#CEC7DC")
 #'  print(snsf_grays)
 snsf_grays <- c("#B2B1A7", "D8D8D3")
 
-#' (experimental) The datastory SNSF scheme (qualitative)
+#' The default datastory SNSF scheme (qualitative)
 #'
-#' The iterativ interpretation of the YAAY scheme for the data stories.
+#' Colors from the new Corporate Design of 2021.
 #' @export
 #' @examples
 #'  # TODO
 datastory_scheme_qualitative <- c(
-  "#5298BD",# SNF Dunkelblau 100 percent
+  "#5298BD", # SNF Dunkelblau 100 percent
   # "#83D0F5", # SNF Blau 100 percent
   "#FBBE5E", # SNF Gelb 100 percent
   "#71B294", # SNF Grün 100 percent
@@ -238,9 +239,9 @@ datastory_scheme_qualitative <- c(
 )
 
 
-#' (experimental) The datastory SNSF scheme (blue seq)
+#' SNSF blues (CD 2021)
 #'
-#' The iterativ interpretation of the YAAY scheme for the data stories.
+#' Colors from the new Corporate Design of 2021.
 #' @export
 #' @examples
 #'  # TODO
@@ -252,10 +253,10 @@ datastory_scheme_blue_seq <-
 
 # c("#00349E", "#406AF5", "#90AAFF", "#CCD8FF")
 
-#' (experimental) The datastory SNSF scheme (green seq)
+#' SNSF greens (CD 2021)
 #'
 #'
-#' The iterativ interpretation of the YAAY scheme for the data stories.
+#' Colors from the new Corporate Design of 2021.
 #' @export
 #' @examples
 #'  # TODO
@@ -263,9 +264,9 @@ datastory_scheme_green_seq <- snsf_green
 
 # c("#00cf85", "#31d79f", "#62e0ba", "#93e8d4")
 
-#' (experimental) The datastory SNSF scheme (yellow seq)
+#' SNSF yellows (CD 2021)
 #'
-#' The iterativ interpretation of the YAAY scheme for the data stories.
+#' Colors from the new Corporate Design of 2021.
 #' @export
 #' @examples
 #'  # TODO
@@ -273,21 +274,25 @@ datastory_scheme_yellow_seq <- snsf_yellow
 
 # c("#efc900", "#f3d740", "#f7e480", "#fbf2bf")
 
-#' (experimental) The datastory SNSF scheme (gray seq)
-#'
-#' The iterativ interpretation of the YAAY scheme for the data stories.
+#' SNSF grays (CD 2021)
 #'
 #' @export
 #' @examples
 #'  # TODO
 datastory_scheme_gray_seq <- snsf_grays
 
-#' (experimental) Get your datastory SNSF scheme
+#' Get your datastory SNSF scheme
 #'
 #' palettes : default (qualitative), qualitative, blue_seq, green_seq,
 #' yellow_seq, gray_seq.
-#'
+#' @param palette Color palette to choose. Available: "default" (qualitative),
+#' "qualitative", "blue_seq", "green_seq", "yellow_seq", "gray_seq"
+#' @param n_col The number of colors to return. If it exceeds the number of
+#' colors in the chosen palette, new colors are interpolated. Do not set this
+#' argument if you want to get the original number of colors in the chosen
+#' palette.
 #' @export
+#' @importFrom grDevices colorRampPalette
 #' @examples
 #'  # TODO
 get_datastory_scheme <- function(palette = "default", n_col = NULL) {
@@ -302,7 +307,7 @@ get_datastory_scheme <- function(palette = "default", n_col = NULL) {
 
   if (length(colors) == 0) {
     warning(paste0("Palette '", palette, "' not found"))
-    colors <- datastory_scheme_all
+    colors <- datastory_scheme_qualitative
   }
 
   # Interpolate colors if not enough are available
@@ -347,14 +352,6 @@ format_when_plotly <- function(x, is_plotly = TRUE,
 #'
 #' Get uniform tooltip CSS style for ggiraph graphs.
 #' @export
-#' @examples
-#'  ggiraph::girafe(
-#'  ggobj = ggplot(mtcars),
-#'  options = list(
-#'    ggiraph::opts_tooltip(
-#'      css = get_ggiraph_tooltip_css()
-#'    )
-#'  ))
 get_ggiraph_tooltip_css <- function() {
   paste0("font-family:'Source Sans Pro';background-color:black;",
          "font-size: 0.8em;padding: 0.5em;color:white;")
