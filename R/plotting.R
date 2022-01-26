@@ -3,14 +3,19 @@
 #' The data plot theme is specially tailored for the clean look of the data
 #' stories. By default, no axis titles and no grid lines are included, they can
 #' be added when needed.
-#' @param legend_position TODO
-#' @param legend_margin TODO
+#' @param legend_position Choose the position of the legend in regards to your
+#' plot.
+#' @param legend_margin ggplot \code{legend.margin} theme element.
 #' @param gridline_axis TODO
-#' @param title_axis TODO
-#' @param text_axis TODO
-#' @param tick_axis TODO
-#' @param remove_plot_margin TODO
-#' @param legend_key_size TODO
+#' @param title_axis Which axis titles should be shown, default X and Y:
+#' \code{c("x", "y")}
+#' @param text_axis Which axis text should be shown, default X and Y:
+#' \code{c("x", "y")}
+#' @param tick_axis On which axis the axis ticks should be displayed.
+#' @param remove_plot_margin Whether all margin around the plot should be
+#' removed. Default \code{FALSE}.
+#' @param legend_key_size ggplot legend.key.width and legend.key.height theme
+#' item: vector with first element width (mm) and second element height (mm).
 #' @export
 #' @examples
 #'  # TODO
@@ -75,7 +80,7 @@ get_datastory_theme <- function(legend_position = "top",
   if ("x" %in% gridline_axis) {
     ds_theme <- ds_theme +
       theme(panel.grid.major.x = element_line(
-        color = "#D3D3D3",
+        color = "#AFAFAF",
         size = 0.2,
         linetype = "longdash"
       ))
@@ -85,7 +90,7 @@ get_datastory_theme <- function(legend_position = "top",
   if ("y" %in% gridline_axis) {
     ds_theme <- ds_theme +
       theme(panel.grid.major.y = element_line(
-        color = "#D3D3D3",
+        color = "#AFAFAF",
         size = 0.2,
         linetype = "longdash"
       ))
@@ -118,18 +123,96 @@ get_datastory_theme <- function(legend_position = "top",
   # Add ticks according to parameters
   if ("x" %in% tick_axis) {
     ds_theme <- ds_theme +
-      theme(axis.ticks.x = element_line(color = "#d3d3d3", size = 0.3))
+      theme(axis.ticks.x = element_line(color = "#AFAFAF", size = 0.3))
   } else {
     ds_theme <- ds_theme + theme(axis.ticks.x = element_blank())
   }
   if ("y" %in% tick_axis) {
     ds_theme <- ds_theme +
-      theme(axis.ticks.y = element_line(color = "#d3d3d3", size = 0.3))
+      theme(axis.ticks.y = element_line(color = "#AFAFAF", size = 0.3))
   } else {
     ds_theme <- ds_theme + theme(axis.ticks.y = element_blank())
   }
   ds_theme
 }
+
+### Specific SNSF colors with different brightness levels (where available)
+
+## Primary colors (100 percent, 70 percent, 30 percent, 10 percent)
+
+#' "SNF Schwarzblau" primary color (100\%)
+#' CD 2021+
+#' Primary colors.
+#' @export
+#' @examples
+#'  print(snsf_black)
+snsf_black <- "#04293C"
+
+#' "SNF Dunkelblau" colors (100\%, 70\%, 30\%, 10\%)
+#' CD 2021+
+#' Primary colors.
+#' @export
+#' @examples
+#'  print(snsf_dark_blues)
+snsf_dark_blues <- c("#5298BD", "#86B7D1", "#CBE0EB", "#EDF4F8")
+
+#' "SNF Blau" colors (100\%, 70\%, 30\%, 10\%)
+#' CD 2021+
+#' Primary colors.
+#' @export
+#' @examples
+#'  print(snsf_blues)
+snsf_blues <- c("#83D0F5", "#A8DEF8", "#DAF1FC", "#F2FAFE")
+
+#' "SNF Dunkelrot" colors (100\%, 70\%, 30\%, 10\%)
+#' CD 2021+
+#' Primary colors.
+#' @export
+#' @examples
+#'  print(snsf_dark_reds)
+snsf_dark_reds <- c("#C95B40", "#D98C79", "#EFCDC5", "#F9EEEC")
+
+#' "SNF Rot" colors (100\%, 70\%, 30\%, 10\%)
+#' CD 2021+
+#' Primary colors.
+#' @export
+#' @examples
+#'  print(snsf_reds)
+snsf_reds <- c("#F08262", "#F4A791", "#FAD9D0", "#FDF2EF")
+
+## Secondary colors (100 percent, 50 percent)
+
+#' "SNF Gelb" colors (100\%, 50\%)
+#' Secondary colors.
+#' CD 2021+
+#' @export
+#' @examples
+#'  print(snsf_yellow)
+snsf_yellow <- c("#FBBE5E", "#FDDEAE")
+
+#' "SNF Grün" colors (100\%, 50\%)
+#' Secondary colors.
+#' CD 2021+
+#' @export
+#' @examples
+#'  print(snsf_green)
+snsf_green <- c("#71B294", "#B8D8C9")
+
+#' "SNF Violett" colors (100\%, 50\%)
+#' Secondary colors.
+#' CD 2021+
+#' @export
+#' @examples
+#'  print(snsf_violet)
+snsf_violet <- c("#9D90B9", "#CEC7DC")
+
+#' "SNF Grau" colors (100\%, 50\%)
+#' CD 2021+
+#' Secondary colors.
+#' @export
+#' @examples
+#'  print(snsf_grays)
+snsf_grays <- c("#B2B1A7", "D8D8D3")
 
 #' (experimental) The datastory SNSF scheme (qualitative)
 #'
@@ -137,7 +220,23 @@ get_datastory_theme <- function(legend_position = "top",
 #' @export
 #' @examples
 #'  # TODO
-datastory_scheme_qualitative <- c("#4159AC", "#4DD898", "#EFC900", "#406AF5")
+datastory_scheme_qualitative <- c(
+  "#5298BD",# SNF Dunkelblau 100 percent
+  # "#83D0F5", # SNF Blau 100 percent
+  "#FBBE5E", # SNF Gelb 100 percent
+  "#71B294", # SNF Grün 100 percent
+  "#9D90B9", # SNF Violett 100 percent
+  "#F08262", # SNF Rot 100 percent
+  "#83D0F5", # SNF Blau 100 percent
+  # Lighter colors:
+  # "#86B7D1", # SNF Dunkelblau 70 percent
+  "#FDDEAE", # SNF Gelb 50 percent
+  "#B8D8C9", # SNF Grün 50 percent
+  "#CEC7DC", # SNF Violett 50 percent
+  "#F4A791" # SNF Rot 70 percent
+  # "#A8DEF8" # SNF Blau 70 percent
+)
+
 
 #' (experimental) The datastory SNSF scheme (blue seq)
 #'
@@ -145,7 +244,13 @@ datastory_scheme_qualitative <- c("#4159AC", "#4DD898", "#EFC900", "#406AF5")
 #' @export
 #' @examples
 #'  # TODO
-datastory_scheme_blue_seq <- c("#00349E", "#406AF5", "#90AAFF", "#CCD8FF")
+datastory_scheme_blue_seq <-
+  c("#5298BD", # SNF Dunkelblau 100 percent
+    "#86B7D1", # SNF Dunkelblau 70 percent
+    "#83D0F5", # SNF Blau 100 percent
+    "#A8DEF8") # SNF Blau 70 percent
+
+# c("#00349E", "#406AF5", "#90AAFF", "#CCD8FF")
 
 #' (experimental) The datastory SNSF scheme (green seq)
 #'
@@ -154,7 +259,9 @@ datastory_scheme_blue_seq <- c("#00349E", "#406AF5", "#90AAFF", "#CCD8FF")
 #' @export
 #' @examples
 #'  # TODO
-datastory_scheme_green_seq <- c("#00cf85", "#31d79f", "#62e0ba", "#93e8d4")
+datastory_scheme_green_seq <- snsf_green
+
+# c("#00cf85", "#31d79f", "#62e0ba", "#93e8d4")
 
 #' (experimental) The datastory SNSF scheme (yellow seq)
 #'
@@ -162,7 +269,9 @@ datastory_scheme_green_seq <- c("#00cf85", "#31d79f", "#62e0ba", "#93e8d4")
 #' @export
 #' @examples
 #'  # TODO
-datastory_scheme_yellow_seq <- c("#efc900", "#f3d740", "#f7e480", "#fbf2bf")
+datastory_scheme_yellow_seq <- snsf_yellow
+
+# c("#efc900", "#f3d740", "#f7e480", "#fbf2bf")
 
 #' (experimental) The datastory SNSF scheme (gray seq)
 #'
@@ -171,7 +280,7 @@ datastory_scheme_yellow_seq <- c("#efc900", "#f3d740", "#f7e480", "#fbf2bf")
 #' @export
 #' @examples
 #'  # TODO
-datastory_scheme_gray_seq <- c("#4F4F4F", "#7E7E7E", "#AFAFAF", "#F0F0F0")
+datastory_scheme_gray_seq <- snsf_grays
 
 #' (experimental) Get your datastory SNSF scheme
 #'
