@@ -1,7 +1,7 @@
 Package: snf.datastory
 Type: Package
 Title: Creating and deploying SNSF Data Stories
-Version: 0.1.1
+Version: 0.1.2
 Author: Julius Mattern
 Maintainer: Simon Gorin <simon.gorin@snf.ch>
 Description: Functions around the creation and deployment of SNSF Data Stories.
