@@ -1,13 +1,13 @@
-#' (experimental) The datastory SNSF scheme (green seq)
+#' (experimental) Translating research area names
 #'
 #' Function to translate the English research areas (SSH, MINT, LS) names into
 #' the corresponding language versions (de, fr, en) as abbreviations or long
 #' format
 #' @param research_area Research area to be translated as English abbreviation,
 #' either "SSH", "MINT", or "LS".
-#' @param target_lang Target language as abbreviation ("de", "en", or "fr")
+#' @param target_lang Target language as abbreviation ("de", "en", or "fr").
 #' @param Whether the output string should be an abbreviation or the whole, long
-#' name (possible values: "abbr" or "long")
+#' name (possible values: "abbr" or "long").
 #' @export
 #' @importFrom dplyr case_when
 #' @examples
@@ -95,12 +95,17 @@ translate_research_area <- function(research_area = "",
 #' @param lang Output format language, available is "en", "de", or "fr"
 #' @export
 #' @examples
-#'  translate_research_area("SSH", target_lang = "de", abbr_or_long = "long")
+#'  print_num(10000, "en")
+#'  print_num(10000, "fr")
+#'  print_num(10000, "de")
+#'  print_num(pi, "en")
+#'  print_num(pi, "fr")
+#'  print_num(pi, "de")
 print_num <- function(x, lang = "en") {
   if (lang == "en")
-    prettyNum(x, big.mark = ",", decimal.mark = ".")
+    prettyNum(x, big.mark = ifelse(x >= 10000, ",", ""), decimal.mark = ".")
   else if (lang == "de")
-    prettyNum(x, big.mark = "'", decimal.mark = ",")
+    prettyNum(x, big.mark = ifelse(x >= 10000, "&nbsp;", ""), decimal.mark = ",")
   else if (lang == "fr")
-    prettyNum(x, big.mark = " ", decimal.mark = ",")
+    prettyNum(x, big.mark = ifelse(x >= 10000, "&nbsp;", ""), decimal.mark = ",")
 }
