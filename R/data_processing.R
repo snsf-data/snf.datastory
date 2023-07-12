@@ -6,10 +6,9 @@
 #' @param research_area Research area to be translated as English abbreviation,
 #' either "SSH", "MINT", or "LS".
 #' @param target_lang Target language as abbreviation ("de", "en", or "fr").
-#' @param Whether the output string should be an abbreviation or the whole, long
-#' name (possible values: "abbr" or "long").
+#' @param abbr_or_long Whether the output string should be an abbreviation or
+#' the whole, long name (possible values: "abbr" or "long").
 #' @export
-#' @importFrom dplyr case_when
 #' @examples
 #'  translate_research_area("SSH", target_lang = "de", abbr_or_long = "long")
 translate_research_area <- function(research_area = "",
@@ -17,10 +16,10 @@ translate_research_area <- function(research_area = "",
                                     abbr_or_long = "abbr") {
   string <- ""
   if (abbr_or_long == "abbr") {
-    string <- case_when(
+    string <- dplyr::case_when(
       (
         target_lang == "en" ~
-          case_when(
+          dplyr::case_when(
             research_area == "SSH" ~ "SSH",
             research_area == "MINT" ~ "MINT",
             research_area == "LS" ~ "LS",
@@ -29,7 +28,7 @@ translate_research_area <- function(research_area = "",
       ),
       (
         target_lang == "de" ~
-          case_when(
+          dplyr::case_when(
             research_area == "SSH" ~ "GSW",
             research_area == "MINT" ~ "MINT",
             research_area == "LS" ~ "LW",
@@ -38,7 +37,7 @@ translate_research_area <- function(research_area = "",
       ),
       (
         target_lang == "fr" ~
-          case_when(
+          dplyr::case_when(
             research_area == "SSH" ~ "SHS",
             research_area == "MINT" ~ "MINT",
             research_area == "LS" ~ "SV",
@@ -48,10 +47,10 @@ translate_research_area <- function(research_area = "",
       TRUE ~ "UNKNOWN"
     )
   } else if (abbr_or_long == "long") {
-    string <- case_when(
+    string <- dplyr::case_when(
       (
         target_lang == "en" ~
-          case_when(
+          dplyr::case_when(
             research_area == "SSH" ~ "Social sciences and humanities",
             research_area == "MINT" ~
               "Mathematics, natural and engineering sciences",
@@ -61,7 +60,7 @@ translate_research_area <- function(research_area = "",
       ),
       (
         target_lang == "de" ~
-          case_when(
+          dplyr::case_when(
             research_area == "SSH" ~ "Geistes- und Sozialwissenschaften",
             research_area == "MINT" ~
               "Mathematik, Natur- und Ingenieurwissenschaften",
@@ -71,10 +70,10 @@ translate_research_area <- function(research_area = "",
       ),
       (
         target_lang == "fr" ~
-          case_when(
+          dplyr::case_when(
             research_area == "SSH" ~ "Sciences humaines et sociales",
             research_area == "MINT" ~
-              "Mathématiques, sciences naturelles et de l'ingénieur",
+              "Math\u00e9matiques, sciences naturelles et de l'ing\u00e9nieur",
             research_area == "LS" ~ "Sciences de la vie",
             TRUE ~ "UNKNOWN"
           )
@@ -105,7 +104,7 @@ print_num <- function(x, lang = "en") {
   if (lang == "en")
     prettyNum(x, big.mark = ifelse(x >= 10000, ",", ""), decimal.mark = ".")
   else if (lang == "de")
-    prettyNum(x, big.mark = ifelse(x >= 10000, "&nbsp;", ""), decimal.mark = ",")
+    prettyNum(x, big.mark = ifelse(x >= 10000, "\U00A0", ""), decimal.mark = ",")
   else if (lang == "fr")
-    prettyNum(x, big.mark = ifelse(x >= 10000, "&nbsp;", ""), decimal.mark = ",")
+    prettyNum(x, big.mark = ifelse(x >= 10000, "\U00A0", ""), decimal.mark = ",")
 }

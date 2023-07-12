@@ -1,11 +1,13 @@
-#' Create a thumbnail for a data story
+#' @title Create a thumbnail for a data story
 #'
-#' Each data story has a thumbnail on the SNSF data portal data story main page.
-#' This function automatize the creation a thumbnail which represent a figure
-#' selected from the data story with a perspective effect and some blurring on
-#' the edges. This functions is however not magic and will probably not generate
-#' the best image by default for any picture. Each case is likely to require
-#' some fine tuning, but default values are a good starting point.
+#' @description Each data story has a thumbnail on the SNSF data portal data
+#' story main page. This function automatize the creation a thumbnail which
+#' represent a figure selected from the data story with a perspective effect and
+#' some blurring on the edges. This functions is however not magic and will
+#' probably not generate the best image by default for any picture. Each case is
+#' likely to require some fine tuning, but default values are a good starting
+#' point.
+#'
 #' @param img_path The path to the screenshot used to generate the thumbnail
 #' (only PNG).
 #' @param blur_steps Determine the smoothness of the blurring process on the
@@ -15,20 +17,19 @@
 #' @param max_blur The intensity of the blur. The blur decreases as it moves
 #' away from the edges.
 #' @param width_blur The proportion of the image width that will be blurred.
-#' For example, 0.40 means that 40% of the width (20% each side) will be
+#' For example, 0.40 means that 40\% of the width (20\% each side) will be
 #' blurred.
 #' @param height_blur The proportion of the image height that will be blurred.
-#' For example, 0.40 means that 40% of the height (20% at the top and 20% at the
-#' bottom) will be blurred.
+#' For example, 0.40 means that 40\% of the height (20\% at the top and 20\% at
+#' the bottom) will be blurred.
 #' @param width_crop The proportion of the image width that is saved when
-#' cropping, after adding a perspective effect. For example, 0.60 means that 60%
-#' of the image width is saved (20% of the image is removed on each side).
+#' cropping, after adding a perspective effect. For example, 0.60 means that
+#' 60\% of the image width is saved (20\% of the image is removed on each side).
 #' @param height_crop The proportion of the image height that is saved when
-#' cropping, after adding a perspective effect. For example, 0.60 means that 60%
-#' of the image height is saved (20% of the image is at the top and 20% at the
-#' bottom).
-#' @param legend_key_size ggplot legend.key.width and legend.key.height theme
-#' item: vector with first element width (mm) and second element height (mm).
+#' cropping, after adding a perspective effect. For example, 0.60 means that
+#' 60\% of the image height is saved (20\% of the image is at the top and
+#' 20\% at the bottom).
+#'
 #' @keywords internal
 
 create_ds_thumbnail <- function(img_path,
