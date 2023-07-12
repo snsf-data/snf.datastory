@@ -27,9 +27,10 @@ get_datastory_theme <- function(legend_position = "top",
                                 text_axis = c("x", "y"),
                                 tick_axis = c(),
                                 remove_plot_margin = FALSE,
-                                legend_key_size = c()) {
+                                legend_key_size = c(),
+                                family = "Source Sans Pro") {
   ds_theme <- theme(
-    text = element_text(color = "#22211d", family = "Source Sans Pro"),
+    text = element_text(color = "#22211d", family = family),
     legend.title = element_blank(),
     legend.text = element_text(size = 8,
                                margin = margin(l = 2, r = 2, unit = "mm")),
@@ -352,7 +353,7 @@ format_when_plotly <- function(x, is_plotly = TRUE,
 #'
 #' Get uniform tooltip CSS style for ggiraph graphs.
 #' @export
-get_ggiraph_tooltip_css <- function() {
-  paste0("font-family:'Source Sans Pro';background-color:black;",
+get_ggiraph_tooltip_css <- function(family = "Source Sans Pro") {
+  paste0("font-family:'", family, "';background-color:black;",
          "font-size: 0.8em;padding: 0.5em;color:white;")
 }
