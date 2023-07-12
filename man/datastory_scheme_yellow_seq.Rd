@@ -11,7 +11,7 @@ An object of class \code{character} of length 2.
 datastory_scheme_yellow_seq
 }
 \description{
-Colors from the new Corporate Design of 2021.
+SNSF yellows (CD 2021)
 }
 \examples{
  # TODO

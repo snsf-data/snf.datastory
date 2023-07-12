@@ -3,9 +3,7 @@
 \docType{data}
 \name{snsf_violet}
 \alias{snsf_violet}
-\title{"SNF Violett" colors (100\%, 50\%)
-Secondary colors.
-CD 2021+}
+\title{SNF Violett" colors (100\%, 50\%)}
 \format{
 An object of class \code{character} of length 2.
 }
@@ -13,9 +11,7 @@ An object of class \code{character} of length 2.
 snsf_violet
 }
 \description{
-"SNF Violett" colors (100\%, 50\%)
-Secondary colors.
-CD 2021+
+Secondary colors CD 2021+
 }
 \examples{
  print(snsf_violet)

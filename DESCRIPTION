@@ -4,11 +4,14 @@ Title: Creating and deploying SNSF Data Stories
 Version: 0.1.1
 Author: Julius Mattern
 Maintainer: Julius Mattern <julius.mattern@snf.ch>
-Description: Functions around the creation and deployment of SNSF Data Stories
-License: MIT
-Depends:
-    tidyverse,
+Description: Functions around the creation and deployment of SNSF Data Stories.
+License: MIT + file LICENSE
+Imports:
+    dplyr,
+    ggplot2,
+    magick
+Suggests:
     showtext
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3

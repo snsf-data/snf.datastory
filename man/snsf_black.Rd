@@ -3,9 +3,7 @@
 \docType{data}
 \name{snsf_black}
 \alias{snsf_black}
-\title{"SNF Schwarzblau" primary color (100\%)
-CD 2021+
-Primary colors.}
+\title{"SNF Schwarzblau" primary color (100\%)}
 \format{
 An object of class \code{character} of length 1.
 }
@@ -13,9 +11,7 @@ An object of class \code{character} of length 1.
 snsf_black
 }
 \description{
-"SNF Schwarzblau" primary color (100\%)
-CD 2021+
-Primary colors.
+Primary colors CD 2021+
 }
 \examples{
  print(snsf_black)

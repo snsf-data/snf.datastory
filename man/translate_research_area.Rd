@@ -2,7 +2,7 @@
 % Please edit documentation in R/data_processing.R
 \name{translate_research_area}
 \alias{translate_research_area}
-\title{(experimental) The datastory SNSF scheme (green seq)}
+\title{(experimental) Translating research area names}
 \usage{
 translate_research_area(
   research_area = "",
@@ -14,10 +14,10 @@ translate_research_area(
 \item{research_area}{Research area to be translated as English abbreviation,
 either "SSH", "MINT", or "LS".}
 
-\item{target_lang}{Target language as abbreviation ("de", "en", or "fr")}
+\item{target_lang}{Target language as abbreviation ("de", "en", or "fr").}
 
-\item{Whether}{the output string should be an abbreviation or the whole, long
-name (possible values: "abbr" or "long")}
+\item{abbr_or_long}{Whether the output string should be an abbreviation or
+the whole, long name (possible values: "abbr" or "long").}
 }
 \description{
 Function to translate the English research areas (SSH, MINT, LS) names into

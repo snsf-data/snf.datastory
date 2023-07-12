@@ -3,9 +3,7 @@
 \docType{data}
 \name{snsf_grays}
 \alias{snsf_grays}
-\title{"SNF Grau" colors (100\%, 50\%)
-CD 2021+
-Secondary colors.}
+\title{"SNF Grau" colors (100\%, 50\%)}
 \format{
 An object of class \code{character} of length 2.
 }
@@ -13,9 +11,7 @@ An object of class \code{character} of length 2.
 snsf_grays
 }
 \description{
-"SNF Grau" colors (100\%, 50\%)
-CD 2021+
-Secondary colors.
+Secondary colors CD 2021+
 }
 \examples{
  print(snsf_grays)

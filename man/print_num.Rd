@@ -16,5 +16,10 @@ Function to format a given number with a specified language-specific
 formatting (thousand separator and decimal separator)
 }
 \examples{
- translate_research_area("SSH", target_lang = "de", abbr_or_long = "long")
+ print_num(10000, "en")
+ print_num(10000, "fr")
+ print_num(10000, "de")
+ print_num(pi, "en")
+ print_num(pi, "fr")
+ print_num(pi, "de")
 }
