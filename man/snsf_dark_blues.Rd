@@ -3,9 +3,7 @@
 \docType{data}
 \name{snsf_dark_blues}
 \alias{snsf_dark_blues}
-\title{"SNF Dunkelblau" colors (100\%, 70\%, 30\%, 10\%)
-CD 2021+
-Primary colors.}
+\title{"SNF Dunkelblau" colors (100\%, 70\%, 30\%, 10\%)}
 \format{
 An object of class \code{character} of length 4.
 }
@@ -13,9 +11,7 @@ An object of class \code{character} of length 4.
 snsf_dark_blues
 }
 \description{
-"SNF Dunkelblau" colors (100\%, 70\%, 30\%, 10\%)
-CD 2021+
-Primary colors.
+Primary colors CD 2021+
 }
 \examples{
  print(snsf_dark_blues)

@@ -16,13 +16,14 @@ format_when_plotly(x, is_plotly = TRUE, make_bold = TRUE, make_italic = FALSE)
 \item{make_italic}{Italic or not?}
 }
 \description{
-\code{plotly::ggplotly()} is convenient but does not support every aspect of
-a ggplot plot when converting it into a plotly plot. One of these aspects is
-the \code{fontface} parameter of \code{geom_text}. The font face can still be
-controlled for plotly output when wrapping HTML tags around the actual text
-in \code{geom_text}, this function does this when the wished output string
-should be formatted for plotly.
+\code{plotly::ggplotly()} is convenient but does not support
+every aspect of a ggplot plot when converting it into a plotly plot. One of
+these aspects is the \code{fontface} parameter of \code{geom_text}. The font
+face can still be controlled for plotly output when wrapping HTML tags around
+the actual text in \code{geom_text}, this function does this when the wished
+output string should be formatted for plotly.
 }
 \examples{
  format_when_plotly("hallo!", is_plotly = TRUE, make_bold = TRUE)
+
 }

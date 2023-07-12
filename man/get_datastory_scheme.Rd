@@ -16,8 +16,8 @@ argument if you want to get the original number of colors in the chosen
 palette.}
 }
 \description{
-palettes : default (qualitative), qualitative, blue_seq, green_seq,
-yellow_seq, gray_seq.
+palettes : default (qualitative), qualitative, blue_seq,
+green_seq, yellow_seq, gray_seq.
 }
 \examples{
  # TODO

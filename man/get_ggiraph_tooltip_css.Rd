@@ -4,7 +4,11 @@
 \alias{get_ggiraph_tooltip_css}
 \title{Get ggiraph tooltip CSS}
 \usage{
-get_ggiraph_tooltip_css()
+get_ggiraph_tooltip_css(family = "Source Sans Pro")
+}
+\arguments{
+\item{family}{the name of the font to use to display text. Source Sans Pro is
+used as default.}
 }
 \description{
 Get uniform tooltip CSS style for ggiraph graphs.

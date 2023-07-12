@@ -6,13 +6,14 @@
 \usage{
 get_datastory_theme(
   legend_position = "top",
-  legend_margin = margin(0, 0, 0, 0),
+  legend_margin = ggplot2::margin(0, 0, 0, 0),
   gridline_axis = c(),
   title_axis = c(),
   text_axis = c("x", "y"),
   tick_axis = c(),
   remove_plot_margin = FALSE,
-  legend_key_size = c()
+  legend_key_size = c(),
+  family = "Source Sans Pro"
 )
 }
 \arguments{
@@ -36,11 +37,14 @@ removed. Default \code{FALSE}.}
 
 \item{legend_key_size}{ggplot legend.key.width and legend.key.height theme
 item: vector with first element width (mm) and second element height (mm).}
+
+\item{family}{the name of the font to use to display text. Source Sans Pro is
+used as default.}
 }
 \description{
-The data plot theme is specially tailored for the clean look of the data
-stories. By default, no axis titles and no grid lines are included, they can
-be added when needed.
+The data plot theme is specially tailored for the clean look of
+the data stories. By default, no axis titles and no grid lines are included,
+they can be added when needed.
 }
 \examples{
  # TODO
