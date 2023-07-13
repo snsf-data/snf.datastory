@@ -101,10 +101,23 @@ translate_research_area <- function(research_area = "",
 #'  print_num(pi, "fr")
 #'  print_num(pi, "de")
 print_num <- function(x, lang = "en") {
-  if (lang == "en")
-    prettyNum(x, big.mark = ifelse(x >= 10000, ",", ""), decimal.mark = ".")
-  else if (lang == "de")
-    prettyNum(x, big.mark = ifelse(x >= 10000, "\U00A0", ""), decimal.mark = ",")
-  else if (lang == "fr")
-    prettyNum(x, big.mark = ifelse(x >= 10000, "\U00A0", ""), decimal.mark = ",")
+  sapply(
+    x,
+    \(x)
+    if (x >= 10000) {
+      if (lang == "en")
+        prettyNum(x, big.mark = ",", decimal.mark = ".")
+      else if (lang == "de")
+        prettyNum(x, big.mark = "\U00A0", decimal.mark = ",")
+      else if (lang == "fr")
+        prettyNum(x, big.mark = "\U00A0", decimal.mark = ",")
+    } else {
+      if (lang == "en")
+        prettyNum(x, big.mark = "", decimal.mark = ".")
+      else if (lang == "de")
+        prettyNum(x, big.mark = "", decimal.mark = ",")
+      else if (lang == "fr")
+        prettyNum(x, big.mark = "", decimal.mark = ",")
+    }
+  )
 }
