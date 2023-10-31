@@ -4,10 +4,10 @@
 \alias{get_ggiraph_tooltip_css}
 \title{Get ggiraph tooltip CSS}
 \usage{
-get_ggiraph_tooltip_css(family = "Source Sans Pro")
+get_ggiraph_tooltip_css(family = "Theinhardt")
 }
 \arguments{
-\item{family}{the name of the font to use to display text. Source Sans Pro is
+\item{family}{the name of the font to use to display text. Theinhardt is
 used as default.}
 }
 \description{

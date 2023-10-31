@@ -13,7 +13,7 @@ get_datastory_theme(
   tick_axis = c(),
   remove_plot_margin = FALSE,
   legend_key_size = c(),
-  family = "Source Sans Pro"
+  family = "Theinhardt"
 )
 }
 \arguments{
@@ -38,7 +38,7 @@ removed. Default \code{FALSE}.}
 \item{legend_key_size}{ggplot legend.key.width and legend.key.height theme
 item: vector with first element width (mm) and second element height (mm).}
 
-\item{family}{the name of the font to use to display text. Source Sans Pro is
+\item{family}{the name of the font to use to display text. Theinhardt is
 used as default.}
 }
 \description{

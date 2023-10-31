@@ -7,9 +7,10 @@ Maintainer: Simon Gorin <simon.gorin@snf.ch>
 Description: Functions around the creation and deployment of SNSF Data Stories.
 License: MIT + file LICENSE
 Imports:
+    cli,
     dplyr,
-    ggplot2,
-    magick
+    forcats,
+    ggplot2
 Suggests:
     showtext
 Encoding: UTF-8
