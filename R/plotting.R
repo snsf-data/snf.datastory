@@ -17,7 +17,7 @@
 #' removed. Default \code{FALSE}.
 #' @param legend_key_size ggplot legend.key.width and legend.key.height theme
 #' item: vector with first element width (mm) and second element height (mm).
-#' @param family the name of the font to use to display text. Source Sans Pro is
+#' @param family the name of the font to use to display text. Theinhardt is
 #' used as default.
 #'
 #' @export
@@ -34,7 +34,7 @@ get_datastory_theme <- function(legend_position = "top",
                                 tick_axis = c(),
                                 remove_plot_margin = FALSE,
                                 legend_key_size = c(),
-                                family = "Source Sans Pro") {
+                                family = "Theinhardt") {
   ds_theme <- ggplot2::theme(
     text = ggplot2::element_text(color = "#22211d", family = family),
     legend.title = ggplot2::element_blank(),
@@ -442,12 +442,12 @@ format_when_plotly <- function(x, is_plotly = TRUE,
 #'
 #' @description Get uniform tooltip CSS style for ggiraph graphs.
 #'
-#' @param family the name of the font to use to display text. Source Sans Pro is
+#' @param family the name of the font to use to display text. Theinhardt is
 #' used as default.
 #'
 #' @export
 
-get_ggiraph_tooltip_css <- function(family = "Source Sans Pro") {
+get_ggiraph_tooltip_css <- function(family = "Theinhardt") {
   paste0("font-family:'", family, "';background-color:black;",
          "font-size: 0.8em;padding: 0.5em;color:white;")
 }

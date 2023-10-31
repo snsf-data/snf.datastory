@@ -1,15 +1,16 @@
 Package: snf.datastory
 Type: Package
 Title: Creating and deploying SNSF Data Stories
-Version: 0.1.2
+Version: 0.1.3
 Author: Julius Mattern
 Maintainer: Simon Gorin <simon.gorin@snf.ch>
 Description: Functions around the creation and deployment of SNSF Data Stories.
 License: MIT + file LICENSE
 Imports:
+    cli,
     dplyr,
-    ggplot2,
-    magick
+    forcats,
+    ggplot2
 Suggests:
     showtext
 Encoding: UTF-8
