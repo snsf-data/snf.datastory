@@ -268,3 +268,348 @@ datastory_pal <- function(
   }
   # nolint end: return_linter
 }
+
+#' @title Datastory colour scales for ggplot2
+#'
+#' @description Fill and colour Datastory scale functions for [ggplot2].
+#'
+#' @param ... Parameters passed to external functions used to generate the
+#' palette: [discrete_scale()], [scale_fill_gradient()],
+#' [scale_fill_gradient2()], [scale_color_gradient()], or
+#' [scale_color_gradient2()].
+#'
+#' @inheritParams datastory_pal
+#' @param type Character string indicating the type of scale used to colour
+#' the data. Four options are available: "qual" (default) for
+#' qualitative/discrete data, "seq" for sequential qualitative/discrete data,
+#' "cont" for continuous data, and "div" for diverging continuous data.
+#' @param grad_col Character string indicating the colour of the scale. For
+#' sequential scales, you can pick any of "blue", "red", "yellow", "green", or
+#' "violet". For continuous scales, you can choose between "blue" (the default)
+#' and "red": the gradient goes from blue/red 30% to dark blue/red 100%. For
+#' diverging scale, there is a single option: from blue to red or vice versa.
+#' @param aesthetics Character string or vector of character strings listing the
+#' name(s) of the aesthetic(s) that this scale works with.
+#'
+#' @rdname scale_fill_datastory
+#'
+#' @export
+#'
+#' @examples
+#' library(dplyr)
+#' library(ggplot2)
+#' library(forcats)
+#'
+#' Qualitative scale
+#' mpg |>
+#'   ggplot() +
+#'   aes(y = class, fill = class) +
+#'   geom_bar(aes(fill = class)) +
+#'   scale_fill_datastory(type = "qual", guide = guide_legend(reverse = TRUE)) +
+#'   get_datastory_theme(legend_position = "right")
+#'
+#' # Sequential scale
+#' mpg |>
+#'   summarise(mean = mean(cty), .by = cyl) |>
+#'   mutate(cyl = fct_reorder(as.character(cyl), mean, .desc = TRUE)) |>
+#'   ggplot() +
+#'   aes(x = cyl, y = mean, fill = cyl) +
+#'   geom_col() +
+#'   scale_fill_datastory(type = "seq") +
+#'   get_datastory_theme()
+#'
+#' # Continuous scale
+#' mpg |>
+#'   ggplot() +
+#'   aes(x = cty, y = displ, color = hwy) +
+#'   geom_point() +
+#'   coord_flip() +
+#'   scale_color_datastory(type = "cont") +
+#'   get_datastory_theme()
+#'
+#' mpg |>
+#'   mutate(hwy = (hwy - mean(hwy)) / sd(hwy)) |>
+#'   ggplot() +
+#'   aes(x = cty, y = displ, color = hwy) +
+#'   geom_point() +
+#'   scale_color_datastory(type = "div") +
+#'   get_datastory_theme()
+
+scale_fill_datastory <- function(...,
+                            palette = "default",
+                            repeat_col = TRUE,
+                            reverse = FALSE,
+                            type = "qual",
+                            grad_col = "blue",
+                            aesthetics = "fill") {
+
+  # Get the list of arguments passed by the user (used for some checks)
+  c_args <- as.list(match.call())
+
+  chk::chk_string(type)
+  chk::chk_subset(type, c("qual", "seq", "cont", "div"))
+  chk::chk_string(grad_col)
+  chk::chk_subset(grad_col, c("blue", "red", "green", "yellow", "violet"))
+
+  # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
+  # not set to "seq".
+  if (!(grad_col %in% c("blue", "red"))  && type != "seq") {
+    cli::cli_abort(
+      paste0(
+        "The colour {grad_col} can only be used for sequential scales (i.e. ",
+        "when `type = \"seq\"`)."
+      )
+    )
+  }
+
+  # Inform the user that 'grad_col' is ignored when 'type = "seq"'
+  if ("grad_col" %in% names(c_args) && type %in% c("qual", "div")) {
+    cli::cli_inform(
+      c(
+        i = paste0(
+          "The argument `grad_col` is not used when the scale is ",
+          "qualitative or diverging. Value passed to that argument was thus ",
+          "ignored."
+        )
+      )
+    )
+  }
+
+  # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
+  # not set to "seq".
+  if (any(c("palette", "repeat_col") %in% names(c_args))  && type != "qual") {
+    cli::cli_inform(
+      c(
+        i = paste0(
+          "The argument `palette` and `repeat_col` are not used when the ",
+          "scale is not qualitative. Any value passed to these arguments was ",
+          "thus ignored."
+        )
+      )
+    )
+  }
+
+  # Qualitative scale using an datastory scheme
+  res_scale <- switch(
+    type,
+    qual = {
+      if (utils::packageVersion("ggplot2") >= "3.5.0")
+        ggplot2::discrete_scale(
+          aesthetics,
+          palette = datastory_pal(palette, repeat_col, reverse),
+          ...
+        )
+      else
+        ggplot2::discrete_scale(
+          aesthetics,
+          "datastory_scheme_qual",
+          palette = datastory_pal(palette, repeat_col, reverse),
+          ...
+        )
+    },
+    cont = {
+      low <- "#ececec"
+      high <- switch(
+        grad_col,
+        blue = datastory_dark_blues[1L],
+        red = datastory_dark_reds[1L]
+      )
+      ggplot2::scale_fill_gradient(
+        low = ifelse(reverse, high, low),
+        high = ifelse(reverse, low, high),
+        aesthetics = aesthetics,
+        ...
+      )
+    },
+    div = ggplot2::scale_fill_gradient2(
+      low = ifelse(reverse, datastory_dark_reds[1L], datastory_dark_blues[1L]),
+      high = ifelse(reverse, datastory_dark_blues[1L], datastory_dark_reds[1L]),
+      mid = "#ececec",
+      aesthetics = aesthetics,
+      ...
+    ),
+    seq = {
+      seq_cols <- c(
+        "#ececec",
+        switch(
+          grad_col,
+          blue = datastory_dark_blues[1L],
+          red = datastory_dark_reds[1L],
+          green = datastory_green[1L],
+          yellow = datastory_yellow[1L],
+          violet = datastory_violet[1L]
+        )
+      )
+      if (reverse) seq_cols <- rev(seq_cols)
+
+      if (utils::packageVersion("ggplot2") >= "3.5.0")
+        ggplot2::discrete_scale(
+          aesthetics,
+          palette = grDevices::colorRampPalette(seq_cols),
+          ...
+        )
+      else
+        ggplot2::discrete_scale(
+          aesthetics,
+          "datastory_scheme_seq",
+          palette = grDevices::colorRampPalette(seq_cols),
+          ...
+        )
+    }
+  )
+
+  return(res_scale)
+}
+
+#' @rdname scale_fill_datastory
+#'
+#' @export
+
+scale_color_datastory <- function(...,
+                             palette = "default",
+                             repeat_col = TRUE,
+                             reverse = FALSE,
+                             type = "qual",
+                             grad_col = "blue",
+                             aesthetics = "color") {
+
+  # Get the list of arguments passed by the user (used for some checks)
+  c_args <- as.list(match.call())
+
+  chk::chk_string(type)
+  chk::chk_subset(type, c("qual", "seq", "cont", "div"))
+  chk::chk_string(grad_col)
+  chk::chk_subset(grad_col, c("blue", "red", "green", "yellow", "violet"))
+
+  # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
+  # not set to "seq".
+  if (!(grad_col %in% c("blue", "red"))  && type != "seq") {
+    cli::cli_abort(
+      paste0(
+        "The colour {grad_col} can only be used for sequential scales (i.e. ",
+        "when `type = \"seq\"`)."
+      )
+    )
+  }
+
+  # Inform the user that 'grad_col' is ignored when 'type = "seq"'
+  if ("grad_col" %in% names(c_args) && type %in% c("qual", "div")) {
+    cli::cli_inform(
+      c(
+        i = paste0(
+          "The argument `grad_col` is not used when the scale is ",
+          "qualitative or diverging. Value passed to that argument was thus ",
+          "ignored."
+        )
+      )
+    )
+  }
+
+  # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
+  # not set to "seq".
+  if (any(c("palette", "repeat_col") %in% names(c_args))  && type != "qual") {
+    cli::cli_inform(
+      c(
+        i = paste0(
+          "The argument `palette` and `repeat_col` are not used when the ",
+          "scale is not qualitative. Any value passed to these arguments was ",
+          "thus ignored."
+        )
+      )
+    )
+  }
+
+  res_scale <- switch(
+    type,
+    qual = {
+      if (utils::packageVersion("ggplot2") >= "3.5.0")
+        ggplot2::discrete_scale(
+          aesthetics,
+          palette = datastory_pal(palette, repeat_col, reverse),
+          ...
+        )
+      else
+        ggplot2::discrete_scale(
+          aesthetics,
+          "datastory_scheme_qual",
+          palette = datastory_pal(palette, repeat_col, reverse),
+          ...
+        )
+    },
+    cont = {
+      low <- "#ececec"
+      high <- switch(
+        grad_col,
+        blue = datastory_dark_blues[1L],
+        red = datastory_dark_reds[1L]
+      )
+      ggplot2::scale_fill_gradient(
+        low = ifelse(reverse, high, low),
+        high = ifelse(reverse, low, high),
+        aesthetics = aesthetics,
+        ...
+      )
+    },
+    div = ggplot2::scale_fill_gradient2(
+      low = ifelse(reverse, datastory_dark_reds[1L], datastory_dark_blues[1L]),
+      high = ifelse(reverse, datastory_dark_blues[1L], datastory_dark_reds[1L]),
+      mid = "#ececec",
+      aesthetics = aesthetics,
+      ...
+    ),
+    seq = {
+      seq_cols <- c(
+        "#ececec",
+        switch(
+          grad_col,
+          blue = datastory_dark_blues[1L],
+          red = datastory_dark_reds[1L],
+          green = datastory_green[1L],
+          yellow = datastory_yellow[1L],
+          violet = datastory_violet[1L]
+        )
+      )
+      if (reverse) seq_cols <- rev(seq_cols)
+      if (utils::packageVersion("ggplot2") >= "3.5.0")
+        ggplot2::discrete_scale(
+          aesthetics,
+          palette = grDevices::colorRampPalette(seq_cols),
+          ...
+        )
+      else
+        ggplot2::discrete_scale(
+          aesthetics,
+          "datastory_scheme_seq",
+          palette = grDevices::colorRampPalette(seq_cols),
+          ...
+        )
+    }
+  )
+  return(res_scale)
+}
+
+#' @rdname scale_fill_datastory
+#'
+#' @aliases scale_color_datastory
+#'
+#' @export
+
+scale_colour_datastory <- scale_color_datastory
+
+#' @param guide Argument used to silence by default the legend when plotting a
+#' single colour.
+#'
+#' @rdname scale_fill_datastory
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' mpg |>
+#' ggplot() +
+#'   aes(y = class, fill = "") +
+#'   geom_bar() +
+#'   scale_fill_datastory_1() +
+#'   get_datastory_theme()
+#'
+#' @export
+
