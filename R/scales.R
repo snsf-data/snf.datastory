@@ -222,3 +222,49 @@ get_datastory_scheme <- function(
 
   return(clrs)
 }
+
+# Datastory scale functions ####
+
+# The following functions are in majority inspired by the series of
+# scale_*_viridis functions from the 'viridis' package. See the following page:
+# https://github.com/sjmgarnier/viridis/blob/master/R/scales.R
+
+#' @title Datastory colour palettes generator
+#'
+#' @description Wrapper function around [get_datastory_scheme()] to transform it
+#' into a palette generator function compatible with
+#' [discrete_scale()] or [scale_fill_gradient()]/[scale_fill_gradient2()].
+#'
+#' @details For more information, see [get_datastory_scheme()] for more
+#' information on the datastory colour palettes available.
+#'
+#' @param palette Character string indicating the datastory colour palette to
+#' use. Only those available in [get_datastory_scheme()] can be used.
+#' @param repeat_col Logical indicating whether the colour should be repeated
+#' sequentially (`TRUE`) when the palette does not return enough values (the
+#' default). If set to `FALSE`, the number of colours will be extended using
+#' interpolation.
+#' @param reverse Logical indicating whether the scale should be reversed or
+#' not (the default). Note that when more colours need to be generated, the
+#' the colours are first reversed before before repeated/interpolated (this
+#' allows to get, for a given palette size, consistent colours whatever it is
+#' reversed or not).
+#'
+#' @keywords internal
+
+datastory_pal <- function(
+  palette = "default",
+  repeat_col = TRUE,
+  reverse = FALSE
+) {
+  # nolint start: return_linter
+  function(n) {
+    get_datastory_scheme(
+      n,
+      palette = palette,
+      repeat_col = repeat_col,
+      reverse = reverse
+    )
+  }
+  # nolint end: return_linter
+}
