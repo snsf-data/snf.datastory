@@ -19,6 +19,8 @@
 #' item: vector with first element width (mm) and second element height (mm).
 #' @param family the name of the font to use to display text. Theinhardt is
 #' used as default.
+#' @param facet_as_hbar Flag indicating whether the theme should be adapted to
+#' display nicely facets as horizontal bars.
 #'
 #' @export
 #'
