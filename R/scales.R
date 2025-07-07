@@ -92,7 +92,7 @@ datastory_grays <- c("#B2B1A7", "#D8D8D3")
 #' @export
 #'
 #' @examples
-#' print(snsf_single)
+#' print(datastory_single)
 datastory_single <- "#5298BD"
 
 # SNSF Schemes ----
