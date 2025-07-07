@@ -302,7 +302,7 @@ datastory_pal <- function(
 #' library(ggplot2)
 #' library(forcats)
 #'
-#' Qualitative scale
+#' # Qualitative scale
 #' mpg |>
 #'   ggplot() +
 #'   aes(y = class, fill = class) +
