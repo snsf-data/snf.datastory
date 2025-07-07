@@ -481,3 +481,33 @@ get_ggiraph_tooltip_css <- function(family = "Theinhardt") {
   paste0("font-family:'", family, "';background-color:black;",
          "font-size: 0.8em;padding: 0.5em;color:white;")
 }
+
+#' Turn facets into horizontal bars
+#'
+#' @param facet Variable to use for faceting (must be the same as the one set
+#' for y-axis in the aesthetics of the plot).
+#' @param ncol Integer indicating the number of facet columns (default is 1).
+#' @param ... Further arguments passed to [ggplot2::facet_wrap()].
+#'
+#' @returns An object of class `<ggproto>`.
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' ggplot(mpg, aes(y = class, fill = class)) +
+#'   geom_bar() +
+#'   scale_fill_datastory_1(guide = NULL) +
+#'   # You need to modify the x-axis with the function below for nice alignment
+#'   scale_x_facet_as_hbar() +
+#'   facet_as_hbar(~class) +
+#'   get_datastory_theme(
+#'     grid_lines = NULL,
+#'     font_size = "extra_large",
+#'     # Make sure to indicate the theme you are using facet as bars
+#'     facet_as_hbar = TRUE
+#'   )
+
+facet_as_hbar <- function(facet, ncol = 1L, ...) {
+  ggplot2::facet_wrap(facet, scales = "free_y", ncol = ncol, ...)
+}
