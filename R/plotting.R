@@ -34,7 +34,11 @@ get_datastory_theme <- function(legend_position = "top",
                                 tick_axis = c(),
                                 remove_plot_margin = FALSE,
                                 legend_key_size = c(),
-                                family = "Theinhardt") {
+                                family = "Theinhardt",
+                                facet_as_hbar = FALSE) {
+  # Arguments called by the user
+  called_args <- as.list(match.call())
+
   ds_theme <- ggplot2::theme(
     text = ggplot2::element_text(color = "#22211d", family = family),
     legend.title = ggplot2::element_blank(),
@@ -78,9 +82,37 @@ get_datastory_theme <- function(legend_position = "top",
     strip.background = ggplot2::element_rect(fill = NA, color = NA)
   )
 
+  # Inform that x "text_axis" is ignored when facet_as_hbar = TRUE
+  if (
+    "y" %in% text_axis && facet_as_hbar && ("text_axis" %in% names(called_args))
+  )
+    cli::cli_inform(
+      c(
+        paste0(
+          "Including the y-axis in {.var text_axis} is ignored when ",
+          "{.code facet_as_hbar = TRUE}."
+        ),
+        i = paste0(
+          "To silence this message, remove the call to {.var text_axis} ",
+          "or set {.code text_axis = NULL}."
+        )
+      )
+    )
+
+  if (facet_as_hbar) {
+    ds_theme <- ds_theme %+replace% ggplot2::theme(
+      strip.text.x = ggplot2::element_text(
+        face = "plain",
+        hjust = 0,
+        vjust = 0,
+        margin = ggplot2::margin(t = 0, r = 0, b = 0.5, unit = "lines")
+      )
+    )
+  }
+
   if (length(legend_key_size) > 0) {
     if (length(legend_key_size) == 2) {
-      ds_theme <- ds_theme +
+      ds_theme <- ds_theme %+replace%
         ggplot2::theme(
           legend.key.width = ggplot2::unit(legend_key_size[1], "mm"),
           legend.key.height = ggplot2::unit(legend_key_size[2], "mm")
@@ -91,13 +123,13 @@ get_datastory_theme <- function(legend_position = "top",
   }
 
   if (remove_plot_margin) {
-    ds_theme <- ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(plot.margin = ggplot2::margin(0, 0, 0, 0, "mm"))
   }
 
   # Add gridlines according to parameters
   if ("x" %in% gridline_axis) {
-    ds_theme <- ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(
         panel.grid.major.x =
           ggplot2::element_line(
@@ -110,74 +142,72 @@ get_datastory_theme <- function(legend_position = "top",
     theme <- ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
   }
   if ("y" %in% gridline_axis) {
-    ds_theme <- ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(panel.grid.major.y = ggplot2::element_line(
         color = "#AFAFAF",
         size = 0.2,
         linetype = "longdash"
       ))
   } else {
-    ds_theme <-
-      ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(panel.grid.major.y = ggplot2::element_blank())
   }
 
   # Remove axis titles according to parameters
   if (!("x" %in% title_axis)) {
-    ds_theme <-
-      ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(axis.title.x = ggplot2::element_blank())
   }
   if (!("y" %in% title_axis)) {
-    ds_theme <-
-      ds_theme +
+    ds_theme <- ds_theme %+replace%
       theme(axis.title.y = ggplot2::element_blank())
   }
 
   # Add axis text according to parameters
   if ("x" %in% text_axis) {
-    ds_theme <- ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(
         axis.text.x = ggplot2::element_text(size = 8, color = "#4F4F4F")
       )
   } else {
-    ds_theme <-
-      ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(axis.text.x = ggplot2::element_blank())
   }
-  if ("y" %in% text_axis) {
-    ds_theme <- ds_theme +
+
+  if (facet_as_hbar) {
+    ds_theme <- ds_theme %+replace%
+      ggplot2::theme(axis.text.y = ggplot2::element_blank())
+  }
+  else if ("y" %in% text_axis) {
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(
         axis.text.y = ggplot2::element_text(size = 8, color = "#4F4F4F")
       )
   } else {
-    ds_theme <-
-      ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(axis.text.y = ggplot2::element_blank())
   }
 
   # Add ticks according to parameters
   if ("x" %in% tick_axis) {
-    ds_theme <- ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(
         axis.ticks.x = ggplot2::element_line(color = "#AFAFAF", size = 0.3)
       )
   } else {
-    ds_theme <-
-      ds_theme + ggplot2::theme(axis.ticks.x = ggplot2::element_blank())
+    ds_theme <- ds_theme %+replace%
+      ggplot2::theme(axis.ticks.x = ggplot2::element_blank())
   }
   if ("y" %in% tick_axis) {
-    ds_theme <-
-      ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(
         axis.ticks.y = ggplot2::element_line(color = "#AFAFAF", size = 0.3)
       )
   } else {
-    ds_theme <-
-      ds_theme +
+    ds_theme <- ds_theme %+replace%
       ggplot2::theme(axis.ticks.y = ggplot2::element_blank())
   }
-  ds_theme
+  return(ds_theme)
 }
 
 ### Specific SNSF colors with different brightness levels (where available)
