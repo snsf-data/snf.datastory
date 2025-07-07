@@ -41,6 +41,8 @@ get_datastory_theme <- function(legend_position = "top",
   # Arguments called by the user
   called_args <- as.list(match.call())
 
+  if (!(family %in% sysfonts::font_families())) family <- "sans"
+
   ds_theme <- ggplot2::theme(
     text = ggplot2::element_text(color = "#22211d", family = family),
     legend.title = ggplot2::element_blank(),
