@@ -163,8 +163,8 @@ datastory_scheme_waffles <- c(
 #' set to `FALSE`, additional colours are interpolated.
 #' @param reverse Whether the palette should be returned in reversed order. If
 #' `n_col` is set and is smaller than the total number of colours in the
-#' palette, the function takes the first `n_col` colours of the palette and
-#' reverses their order, it does not reverse the whole palette and then take the
+#' palette, the function takes the first `n_col` colours in the palette and
+#' reverses their order. It does not reverse the whole palette and then take the
 #' first `n_col` colours.
 #'
 #' @export
@@ -174,24 +174,25 @@ datastory_scheme_waffles <- c(
 #' get_datastory_scheme()
 #' # Colours for waffle charts
 #' get_datastory_scheme(palette = "waffles")
-
-get_datastory_scheme <- function(n_col = NULL,
-                            palette = "default",
-                            repeat_col = TRUE,
-                            reverse = FALSE) {
-
+get_datastory_scheme <- function(
+  n_col = NULL,
+  palette = "default",
+  repeat_col = TRUE,
+  reverse = FALSE
+) {
   if (
     !any(
       chk::vld_whole_number(n_col) && chk::vld_gt(n_col, 0L),
       chk::vld_null(n_col)
     )
-  )
+  ) {
     cli::cli_abort(
       paste0(
         "`n_col` must be a positive whole number (non-missing integer scalar ",
         "or double equivalent) or NULL."
       )
     )
+  }
   chk::chk_string(palette)
   chk::chk_subset(palette, c("default", "waffles"))
   chk::chk_flag(repeat_col)
