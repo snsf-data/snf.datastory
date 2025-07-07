@@ -176,6 +176,7 @@ datastory_scheme_waffles <- c(
 #' get_datastory_scheme()
 #' # Colours for waffle charts
 #' get_datastory_scheme(palette = "waffles")
+
 get_datastory_scheme <- function(
   n_col = NULL,
   palette = "default",
@@ -217,7 +218,6 @@ get_datastory_scheme <- function(
     clrs <- clrs[1L:n_col]
     # Reverse colours before interpolating
     if (reverse) clrs <- rev(clrs)
-
   } else if (reverse) {
     clrs <- rev(clrs)
   }
