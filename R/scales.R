@@ -199,7 +199,7 @@ get_datastory_scheme <- function(
   chk::chk_flag(reverse)
 
   # Choose the right colour palette
-  clrs <- switch(palette, default = snsf_scheme, waffles = snsf_scheme_waffles)
+  clrs <- switch(palette, default = datastory_scheme, waffles = datastory_scheme_waffles)
 
   # Interpolate colours if not enough are available
   if (!is.null(n_col)) {
