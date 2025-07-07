@@ -1,18 +1,23 @@
-Package: snf.datastory
 Type: Package
+Package: snf.datastory
 Title: Creating and deploying SNSF Data Stories
 Version: 0.1.3
-Author: Julius Mattern
-Maintainer: Simon Gorin <simon.gorin@snf.ch>
-Description: Functions around the creation and deployment of SNSF Data Stories.
+Authors@R: c(
+    person("Julius", "Mattern", role = c("aut", "cph")),
+    person("Simon", "Gorin", , "simon.gorin@snf.ch", role = "cre")
+  )
+Description: Functions around the creation and deployment of SNSF Data
+    Stories.
 License: MIT + file LICENSE
 Imports:
+    chk,
     cli,
     dplyr,
     forcats,
-    ggplot2
+    ggplot2,
+    sysfonts
 Suggests:
     showtext
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.2

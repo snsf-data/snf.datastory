@@ -85,7 +85,10 @@ translate_short_english_research_area <- function(research_area,
         research_areas_list[[paste0("MINT_", output_format, "_", output_lang)]],
 
       research_areas_list$LS_short_en ~
-        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]]
+        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]],
+
+      research_areas_list$MD_short_en ~
+        research_areas_list[[paste0("MD_", output_format, "_", output_lang)]]
     )
 
   if (output_as_factor) {
@@ -144,7 +147,10 @@ translate_long_english_research_area <- function(research_area,
         research_areas_list[[paste0("MINT_", output_format, "_", output_lang)]],
 
       research_areas_list$LS_long_en ~
-        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]]
+        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]],
+
+      research_areas_list$MD_long_en ~
+        research_areas_list[[paste0("MD_", output_format, "_", output_lang)]]
     )
 
   if (output_as_factor) {
@@ -193,7 +199,10 @@ translate_short_german_research_area <- function(research_area,
         research_areas_list[[paste0("MINT_", output_format, "_", output_lang)]],
 
       research_areas_list$LS_short_de ~
-        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]]
+        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]],
+
+      research_areas_list$MD_short_de ~
+        research_areas_list[[paste0("MD_", output_format, "_", output_lang)]]
     )
 
   if (output_as_factor) {
@@ -242,7 +251,10 @@ translate_long_german_research_area <- function(research_area,
         research_areas_list[[paste0("MINT_", output_format, "_", output_lang)]],
 
       research_areas_list$LS_long_de ~
-        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]]
+        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]],
+
+      research_areas_list$MD_long_de ~
+        research_areas_list[[paste0("MD_", output_format, "_", output_lang)]]
     )
 
   if (output_as_factor) {
@@ -291,7 +303,10 @@ translate_short_french_research_area <- function(research_area,
         research_areas_list[[paste0("MINT_", output_format, "_", output_lang)]],
 
       research_areas_list$LS_short_fr ~
-        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]]
+        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]],
+
+      research_areas_list$MD_short_fr ~
+        research_areas_list[[paste0("MD_", output_format, "_", output_lang)]]
     )
 
   if (output_as_factor) {
@@ -340,7 +355,10 @@ translate_long_french_research_area <- function(research_area,
         research_areas_list[[paste0("MINT_", output_format, "_", output_lang)]],
 
       research_areas_list$LS_long_fr ~
-        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]]
+        research_areas_list[[paste0("LS_", output_format, "_", output_lang)]],
+
+      research_areas_list$MD_long_fr ~
+        research_areas_list[[paste0("MD_", output_format, "_", output_lang)]]
     )
 
   if (output_as_factor) {
@@ -381,24 +399,44 @@ research_areas_list <-
     SSH_short_en = "SSH",
     SSH_short_de = "GSW",
     SSH_short_fr = "SHS",
-    SSH_long_en = "Social sciences and humanities",
+    SSH_long_en = "Social Sciences and Humanities",
     SSH_long_de = "Geistes- und Sozialwissenschaften",
     SSH_long_fr = "Sciences humaines et sociales",
+
     MINT_short_en = "MINT",
     MINT_short_de = "MINT",
     MINT_short_fr = "MINT",
-    MINT_long_en = "Mathematics, natural and engineering sciences",
-    MINT_long_de =  "Mathematik, Natur- und Ingenieurwissenschaften",
-    MINT_long_fr = "Math\u00E9matiques, sciences naturelles et de l'ing\u00E9nieur",
+    MINT_long_en = "Mathematics, Informatics, Natural Sciences and Technology",
+    MINT_long_de = "Mathematik, Informatik, Naturwissenschaften und Technik",
+    MINT_long_fr = "Math\u00E9matiques, informatique, sciences naturelles et technique", # nolint: line_length_integer
+
     LS_short_en = "LS",
     LS_short_de = "LW",
     LS_short_fr = "SV",
-    LS_long_en = "Life sciences",
+    LS_long_en = "Life Sciences",
     LS_long_de = "Lebenswissenschaften",
     LS_long_fr = "Sciences de la vie",
+
     SSH_long_legacy = "Humanities and Social Sciences",
     MINT_long_legacy = "Mathematics, Natural- and Engineering Sciences",
-    LS_long_legacy = "Biology and Medicine"
+    LS_long_legacy = "Biology and Medicine",
+    ID_long_legacy = "Interdisciplinary",
+    MD_long_legacy = "Multi-domain",
+    NA_long_legacy = "non-classifiable",
+
+    MD_short_en = "Multi-domain",
+    MD_short_de = "gebiets\u00fcbergreifend",
+    MD_short_fr = "Multi-domaines",
+    MD_long_en = "Multi-domain",
+    MD_long_de = "gebiets\u00fcbergreifend",
+    MD_long_fr = "Multi-domaines",
+
+    NA_short_en = "non-classifiable",
+    NA_short_de = "Nicht zuteilbar",
+    NA_short_fr = "Non attribuable",
+    NA_long_en = "non-classifiable",
+    NA_long_de = "Nicht zuteilbar",
+    NA_long_fr = "Non attribuable"
   )
 
 #' @keywords internal
@@ -409,37 +447,43 @@ research_area_factor_order <-
       c(
         research_areas_list$SSH_short_en,
         research_areas_list$MINT_short_en,
-        research_areas_list$LS_short_en
+        research_areas_list$LS_short_en,
+        research_areas_list$MD_short_en
       ),
     en_long =
       c(
         research_areas_list$SSH_long_en,
         research_areas_list$MINT_long_en,
-        research_areas_list$LS_long_en
+        research_areas_list$LS_long_en,
+        research_areas_list$MD_short_en
       ),
     de_short =
       c(
         research_areas_list$SSH_short_de,
         research_areas_list$MINT_short_de,
-        research_areas_list$LS_short_de
+        research_areas_list$LS_short_de,
+        research_areas_list$MD_short_de
       ),
     de_long =
       c(
         research_areas_list$SSH_long_de,
         research_areas_list$MINT_long_de,
-        research_areas_list$LS_long_de
+        research_areas_list$LS_long_de,
+        research_areas_list$MD_long_de
       ),
     fr_short =
       c(
         research_areas_list$SSH_short_fr,
         research_areas_list$MINT_short_fr,
-        research_areas_list$LS_short_fr
+        research_areas_list$LS_short_fr,
+        research_areas_list$MD_short_fr
       ),
     fr_long =
       c(
         research_areas_list$SSH_long_fr,
         research_areas_list$MINT_long_fr,
-        research_areas_list$LS_long_fr
+        research_areas_list$LS_long_fr,
+        research_areas_list$MD_long_fr
       )
   )
 
