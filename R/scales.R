@@ -1,5 +1,7 @@
+#==============================================================================#
 # Datastory colours for direct access (based on the SNSF corporate design:
-# https://snf.styleguides.ch/manual/fr/1.1.1.0/home.html) ####
+# https://snf.styleguides.ch/manual/fr/1.1.1.0/home.html)
+#==============================================================================#
 
 # Primary colours (100 percent, 70 percent, 30 percent, 10 percent) ----
 
