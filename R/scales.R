@@ -147,3 +147,77 @@ datastory_scheme_waffles <- c(
   "#F7C0B0",
   "#A8CBDE"
 )
+
+#' @title Get the datastory colours you need
+#'
+#' @description Choose between different datastory colour palettes and get
+#' additional colours through interpolation when needed.
+#'
+#' @param n_col The number of colours to return. If it exceeds the number of
+#' colours in the chosen palette, additional colours are interpolated. Do not
+#' set this argument if you want to get the original number of colours in the
+#' chosen palette.
+#' @param palette Choose between "default" and "waffles".
+#' @param repeat_col Whether to repeat the colour scheme when there are more
+#' colours requested (with `n_col`) than the colour scheme has to offer. When
+#' set to `FALSE`, additional colours are interpolated.
+#' @param reverse Whether the palette should be returned in reversed order. If
+#' `n_col` is set and is smaller than the total number of colours in the
+#' palette, the function takes the first `n_col` colours of the palette and
+#' reverses their order, it does not reverse the whole palette and then take the
+#' first `n_col` colours.
+#'
+#' @export
+#'
+#' @examples
+#' # Default colours for charts
+#' get_datastory_scheme()
+#' # Colours for waffle charts
+#' get_datastory_scheme(palette = "waffles")
+
+get_datastory_scheme <- function(n_col = NULL,
+                            palette = "default",
+                            repeat_col = TRUE,
+                            reverse = FALSE) {
+
+  if (
+    !any(
+      chk::vld_whole_number(n_col) && chk::vld_gt(n_col, 0L),
+      chk::vld_null(n_col)
+    )
+  )
+    cli::cli_abort(
+      paste0(
+        "`n_col` must be a positive whole number (non-missing integer scalar ",
+        "or double equivalent) or NULL."
+      )
+    )
+  chk::chk_string(palette)
+  chk::chk_subset(palette, c("default", "waffles"))
+  chk::chk_flag(repeat_col)
+  chk::chk_flag(reverse)
+
+  # Choose the right colour palette
+  clrs <- switch(palette, default = snsf_scheme, waffles = snsf_scheme_waffles)
+
+  # Interpolate colours if not enough are available
+  if (!is.null(n_col)) {
+    if (n_col > length(clrs)) {
+      # Repeat (and not interpolate) the colour scheme when configured
+      if (repeat_col) {
+        clrs <- rep(clrs, ceiling(n_col / length(clrs)))[1L:n_col]
+      } else {
+        # Interpolate new colours
+        clrs <- grDevices::colorRampPalette(clrs)(n_col)
+      }
+    }
+    clrs <- clrs[1L:n_col]
+    # Reverse colours before interpolating
+    if (reverse) clrs <- rev(clrs)
+
+  } else if (reverse) {
+    clrs <- rev(clrs)
+  }
+
+  return(clrs)
+}
