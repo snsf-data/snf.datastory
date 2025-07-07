@@ -22,4 +22,7 @@ formatting (thousand separator and decimal separator)
  print_num(pi, "en")
  print_num(pi, "fr")
  print_num(pi, "de")
+ print_num(10000 * pi, "en")
+ print_num(10000 * pi, "fr")
+ print_num(10000 * pi, "de")
 }
