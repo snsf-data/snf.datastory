@@ -613,3 +613,48 @@ scale_colour_datastory <- scale_color_datastory
 #'
 #' @export
 
+scale_fill_datastory_1 <- function(..., guide = NULL) {
+  ggplot2::scale_fill_manual(values = datastory_single, guide = guide, ...) # nolint: return_linter
+}
+
+#' @param guide Argument used to silence by default the legend when plotting a
+#' single colour.
+#'
+#' @rdname scale_fill_datastory
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' mpg |>
+#' ggplot() +
+#'   aes(y = class, x = displ, color = "") +
+#'   geom_point() +
+#'   scale_color_datastory_1() +
+#'   get_datastory_theme()
+#'
+#' @export
+
+scale_color_datastory_1 <- function(..., guide = NULL) {
+  ggplot2::scale_color_manual(values = datastory_single, guide = guide, ...) # nolint: return_linter
+}
+
+#' Modify x-axis scale to render nicely facets as bars
+#'
+#' @returns An object of class `<ggproto>`.
+#' @export
+#'
+#' @examples
+#' library(ggplot2)
+#'
+#' ggplot(mpg, aes(y = class, fill = class)) +
+#'   geom_bar() +
+#'   scale_fill_datastory(guide = NULL) +
+#'   # You need to modify the x-axis with the function below for nice alignment
+#'   scale_x_facet_as_hbar() +
+#'   facet_as_hbar(~class) +
+#'   get_datastory_theme(
+#'     grid_lines = NULL,
+#'     font_size = "extra_large",
+#'     # Make sure to indicate the theme you are using facet as bars
+#'     facet_as_hbar = TRUE
+#'   )
