@@ -655,8 +655,10 @@ scale_color_datastory_1 <- function(..., guide = NULL) {
 #'   scale_x_facet_as_hbar() +
 #'   facet_as_hbar(~class) +
 #'   get_datastory_theme(
-#'     grid_lines = NULL,
-#'     font_size = "extra_large",
 #'     # Make sure to indicate the theme you are using facet as bars
 #'     facet_as_hbar = TRUE
 #'   )
+
+scale_x_facet_as_hbar <- function() {
+  ggplot2::scale_x_continuous(expand = ggplot2::expansion(mult = c(0.0, 0.05)))
+}
