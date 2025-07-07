@@ -13,7 +13,8 @@ get_datastory_theme(
   tick_axis = c(),
   remove_plot_margin = FALSE,
   legend_key_size = c(),
-  family = "Theinhardt"
+  family = "Theinhardt",
+  facet_as_hbar = FALSE
 )
 }
 \arguments{
@@ -40,6 +41,9 @@ item: vector with first element width (mm) and second element height (mm).}
 
 \item{family}{the name of the font to use to display text. Theinhardt is
 used as default.}
+
+\item{facet_as_hbar}{Flag indicating whether the theme should be adapted to
+display nicely facets as horizontal bars.}
 }
 \description{
 The data plot theme is specially tailored for the clean look of
