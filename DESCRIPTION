@@ -1,7 +1,7 @@
 Type: Package
 Package: snf.datastory
 Title: Creating and deploying SNSF Data Stories
-Version: 0.1.3
+Version: 0.1.4
 Authors@R: c(
     person("Julius", "Mattern", role = c("aut", "cph")),
     person("Simon", "Gorin", , "simon.gorin@snf.ch", role = "cre")
