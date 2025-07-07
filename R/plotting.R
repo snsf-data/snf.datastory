@@ -315,13 +315,11 @@ get_ggiraph_tooltip_css <- function(family = "Theinhardt") {
 #'
 #' ggplot(mpg, aes(y = class, fill = class)) +
 #'   geom_bar() +
-#'   scale_fill_datastory_1(guide = NULL) +
+#'   scale_fill_datastory(guide = NULL) +
 #'   # You need to modify the x-axis with the function below for nice alignment
 #'   scale_x_facet_as_hbar() +
 #'   facet_as_hbar(~class) +
 #'   get_datastory_theme(
-#'     grid_lines = NULL,
-#'     font_size = "extra_large",
 #'     # Make sure to indicate the theme you are using facet as bars
 #'     facet_as_hbar = TRUE
 #'   )
