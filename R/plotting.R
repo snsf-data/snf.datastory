@@ -138,7 +138,7 @@ get_datastory_theme <- function(legend_position = "top",
         panel.grid.major.x =
           ggplot2::element_line(
             color = "#AFAFAF",
-            size = 0.2,
+            linewidth = 0.2,
             linetype = "longdash"
           )
       )
@@ -149,7 +149,7 @@ get_datastory_theme <- function(legend_position = "top",
     ds_theme <- ds_theme %+replace%
       ggplot2::theme(panel.grid.major.y = ggplot2::element_line(
         color = "#AFAFAF",
-        size = 0.2,
+        linewidth = 0.2,
         linetype = "longdash"
       ))
   } else {
@@ -196,7 +196,7 @@ get_datastory_theme <- function(legend_position = "top",
   if ("x" %in% tick_axis) {
     ds_theme <- ds_theme %+replace%
       ggplot2::theme(
-        axis.ticks.x = ggplot2::element_line(color = "#AFAFAF", size = 0.3)
+        axis.ticks.x = ggplot2::element_line(color = "#AFAFAF", linewidth = 0.3)
       )
   } else {
     ds_theme <- ds_theme %+replace%
@@ -205,7 +205,7 @@ get_datastory_theme <- function(legend_position = "top",
   if ("y" %in% tick_axis) {
     ds_theme <- ds_theme %+replace%
       ggplot2::theme(
-        axis.ticks.y = ggplot2::element_line(color = "#AFAFAF", size = 0.3)
+        axis.ticks.y = ggplot2::element_line(color = "#AFAFAF", linewidth = 0.3)
       )
   } else {
     ds_theme <- ds_theme %+replace%
