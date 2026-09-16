@@ -28,29 +28,32 @@
 #'
 #' @examples
 #'  # TODO
-get_datastory_theme <- function(legend_position = "top",
-                                legend_margin = ggplot2::margin(0, 0, 0, 0),
-                                gridline_axis = c(),
-                                title_axis = c(),
-                                text_axis = c("x", "y"),
-                                tick_axis = c(),
-                                remove_plot_margin = FALSE,
-                                legend_key_size = c(),
-                                family = "Theinhardt",
-                                facet_as_hbar = FALSE) {
+get_datastory_theme <- function(
+  legend_position = "top",
+  legend_margin = ggplot2::margin(0, 0, 0, 0),
+  gridline_axis = c(),
+  title_axis = c(),
+  text_axis = c("x", "y"),
+  tick_axis = c(),
+  remove_plot_margin = FALSE,
+  legend_key_size = c(),
+  family = "Theinhardt",
+  facet_as_hbar = FALSE
+) {
   # Arguments called by the user
   called_args <- as.list(match.call())
 
-  if (!(family %in% systemfonts::system_fonts()[["family"]])) family <- "sans"
+  if (!(family %in% systemfonts::system_fonts()[["family"]])) {
+    family <- "sans"
+  }
 
   ds_theme <- ggplot2::theme(
     text = ggplot2::element_text(color = "#22211d", family = family),
     legend.title = ggplot2::element_blank(),
-    legend.text =
-      ggplot2::element_text(
-        size = 8,
-        margin = ggplot2::margin(l = 2, r = 2, unit = "mm")
-      ),
+    legend.text = ggplot2::element_text(
+      size = 8,
+      margin = ggplot2::margin(l = 2, r = 2, unit = "mm")
+    ),
     legend.position = legend_position,
     legend.justification = "left",
     legend.margin = legend_margin,
@@ -58,30 +61,26 @@ get_datastory_theme <- function(legend_position = "top",
     legend.key = ggplot2::element_blank(),
     plot.title = ggplot2::element_text(face = "bold", size = 10),
     plot.subtitle = ggplot2::element_text(size = 8),
-    plot.caption = ggplot2::element_text(size = 6, hjust =  0.5, face = "bold"),
+    plot.caption = ggplot2::element_text(size = 6, hjust = 0.5, face = "bold"),
     panel.background = ggplot2::element_blank(),
-    axis.title.x =
-      ggplot2::element_text(
-        size = 9,
-        margin =
-          ggplot2::margin(
-            t = 10,
-            r = 0,
-            b = 5,
-            l = 0
-          )
-      ),
-    axis.title.y =
-      ggplot2::element_text(
-        size = 9,
-        margin =
-          ggplot2::margin(
-            t = 0,
-            r = 10,
-            b = 0,
-            l = 5
-          )
-      ),
+    axis.title.x = ggplot2::element_text(
+      size = 9,
+      margin = ggplot2::margin(
+        t = 10,
+        r = 0,
+        b = 5,
+        l = 0
+      )
+    ),
+    axis.title.y = ggplot2::element_text(
+      size = 9,
+      margin = ggplot2::margin(
+        t = 0,
+        r = 10,
+        b = 0,
+        l = 5
+      )
+    ),
     strip.text = ggplot2::element_text(size = 8, face = "bold"),
     strip.background = ggplot2::element_rect(fill = NA, color = NA)
   )
@@ -89,7 +88,7 @@ get_datastory_theme <- function(legend_position = "top",
   # Inform that x "text_axis" is ignored when facet_as_hbar = TRUE
   if (
     "y" %in% text_axis && facet_as_hbar && ("text_axis" %in% names(called_args))
-  )
+  ) {
     cli::cli_inform(
       c(
         paste0(
@@ -102,16 +101,18 @@ get_datastory_theme <- function(legend_position = "top",
         )
       )
     )
+  }
 
   if (facet_as_hbar) {
-    ds_theme <- ds_theme %+replace% ggplot2::theme(
-      strip.text.x = ggplot2::element_text(
-        face = "plain",
-        hjust = 0,
-        vjust = 0,
-        margin = ggplot2::margin(t = 0, r = 0, b = 0.5, unit = "lines")
+    ds_theme <- ds_theme %+replace%
+      ggplot2::theme(
+        strip.text.x = ggplot2::element_text(
+          face = "plain",
+          hjust = 0,
+          vjust = 0,
+          margin = ggplot2::margin(t = 0, r = 0, b = 0.5, unit = "lines")
+        )
       )
-    )
   }
 
   if (length(legend_key_size) > 0) {
@@ -135,23 +136,24 @@ get_datastory_theme <- function(legend_position = "top",
   if ("x" %in% gridline_axis) {
     ds_theme <- ds_theme %+replace%
       ggplot2::theme(
-        panel.grid.major.x =
-          ggplot2::element_line(
-            color = "#AFAFAF",
-            linewidth = 0.2,
-            linetype = "longdash"
-          )
+        panel.grid.major.x = ggplot2::element_line(
+          color = "#AFAFAF",
+          linewidth = 0.2,
+          linetype = "longdash"
+        )
       )
   } else {
     theme <- ggplot2::theme(panel.grid.major.x = ggplot2::element_blank())
   }
   if ("y" %in% gridline_axis) {
     ds_theme <- ds_theme %+replace%
-      ggplot2::theme(panel.grid.major.y = ggplot2::element_line(
-        color = "#AFAFAF",
-        linewidth = 0.2,
-        linetype = "longdash"
-      ))
+      ggplot2::theme(
+        panel.grid.major.y = ggplot2::element_line(
+          color = "#AFAFAF",
+          linewidth = 0.2,
+          linetype = "longdash"
+        )
+      )
   } else {
     ds_theme <- ds_theme %+replace%
       ggplot2::theme(panel.grid.major.y = ggplot2::element_blank())
@@ -181,8 +183,7 @@ get_datastory_theme <- function(legend_position = "top",
   if (facet_as_hbar) {
     ds_theme <- ds_theme %+replace%
       ggplot2::theme(axis.text.y = ggplot2::element_blank())
-  }
-  else if ("y" %in% text_axis) {
+  } else if ("y" %in% text_axis) {
     ds_theme <- ds_theme %+replace%
       ggplot2::theme(
         axis.text.y = ggplot2::element_text(size = 8, color = "#4F4F4F")
@@ -235,13 +236,15 @@ get_datastory_theme <- function(legend_position = "top",
 
 get_datastory_scheme <- function(palette = "default", n_col = NULL) {
   # Choose the right color palette
-  colors <- switch(palette,
-                   default = datastory_scheme_qualitative,
-                   qualitative = datastory_scheme_qualitative,
-                   blue_seq = datastory_scheme_blue_seq,
-                   green_seq = datastory_scheme_green_seq,
-                   yellow_seq = datastory_scheme_yellow_seq,
-                   gray_seq = datastory_scheme_gray_seq)
+  colors <- switch(
+    palette,
+    default = datastory_scheme_qualitative,
+    qualitative = datastory_scheme_qualitative,
+    blue_seq = datastory_scheme_blue_seq,
+    green_seq = datastory_scheme_green_seq,
+    yellow_seq = datastory_scheme_yellow_seq,
+    gray_seq = datastory_scheme_gray_seq
+  )
 
   if (length(colors) == 0) {
     warning(paste0("Palette '", palette, "' not found"))
@@ -250,11 +253,13 @@ get_datastory_scheme <- function(palette = "default", n_col = NULL) {
 
   # Interpolate colors if not enough are available
   if (!is.null(n_col)) {
-    if (n_col > length(colors))
+    if (n_col > length(colors)) {
       colors <- grDevices::colorRampPalette(colors)(n_col)
+    }
     return(colors[1:n_col])
-  } else
+  } else {
     return(colors)
+  }
 }
 
 #' @title Make text bold for plotly with HTML
@@ -276,14 +281,19 @@ get_datastory_scheme <- function(palette = "default", n_col = NULL) {
 #' @examples
 #'  format_when_plotly("hallo!", is_plotly = TRUE, make_bold = TRUE)
 #'
-format_when_plotly <- function(x, is_plotly = TRUE,
-                               make_bold = TRUE,
-                               make_italic = FALSE) {
+format_when_plotly <- function(
+  x,
+  is_plotly = TRUE,
+  make_bold = TRUE,
+  make_italic = FALSE
+) {
   if (is_plotly) {
-    if (make_italic)
+    if (make_italic) {
       x <- paste0("<i>", x, "</i>")
-    if (make_bold)
+    }
+    if (make_bold) {
       x <- paste0("<b>", x, "</b>")
+    }
     x
   } else {
     x
@@ -300,8 +310,12 @@ format_when_plotly <- function(x, is_plotly = TRUE,
 #' @export
 
 get_ggiraph_tooltip_css <- function(family = "Theinhardt") {
-  paste0("font-family:'", family, "';background-color:black;",
-         "font-size: 0.8em;padding: 0.5em;color:white;")
+  paste0(
+    "font-family:'",
+    family,
+    "';background-color:black;",
+    "font-size: 0.8em;padding: 0.5em;color:white;"
+  )
 }
 
 #' Turn facets into horizontal bars
