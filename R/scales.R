@@ -123,7 +123,6 @@ datastory_scheme <- c(
   "#CEC7DC", # secondary violet 50%
   "#F7C0B0",
   "#C1E7FA"
-
 )
 
 #' @title Alternative default datastory colour scheme
@@ -202,7 +201,11 @@ get_datastory_scheme <- function(
   chk::chk_flag(reverse)
 
   # Choose the right colour palette
-  clrs <- switch(palette, default = datastory_scheme, waffles = datastory_scheme_waffles)
+  clrs <- switch(
+    palette,
+    default = datastory_scheme,
+    waffles = datastory_scheme_waffles
+  )
 
   # Interpolate colours if not enough are available
   if (!is.null(n_col)) {
@@ -337,14 +340,15 @@ datastory_pal <- function(
 #'   scale_color_datastory(type = "div") +
 #'   get_datastory_theme()
 
-scale_fill_datastory <- function(...,
-                            palette = "default",
-                            repeat_col = TRUE,
-                            reverse = FALSE,
-                            type = "qual",
-                            grad_col = "blue",
-                            aesthetics = "fill") {
-
+scale_fill_datastory <- function(
+  ...,
+  palette = "default",
+  repeat_col = TRUE,
+  reverse = FALSE,
+  type = "qual",
+  grad_col = "blue",
+  aesthetics = "fill"
+) {
   # Get the list of arguments passed by the user (used for some checks)
   c_args <- as.list(match.call())
 
@@ -355,7 +359,7 @@ scale_fill_datastory <- function(...,
 
   # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
   # not set to "seq".
-  if (!(grad_col %in% c("blue", "red"))  && type != "seq") {
+  if (!(grad_col %in% c("blue", "red")) && type != "seq") {
     cli::cli_abort(
       paste0(
         "The colour {grad_col} can only be used for sequential scales (i.e. ",
@@ -379,7 +383,7 @@ scale_fill_datastory <- function(...,
 
   # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
   # not set to "seq".
-  if (any(c("palette", "repeat_col") %in% names(c_args))  && type != "qual") {
+  if (any(c("palette", "repeat_col") %in% names(c_args)) && type != "qual") {
     cli::cli_inform(
       c(
         i = paste0(
@@ -395,19 +399,20 @@ scale_fill_datastory <- function(...,
   res_scale <- switch(
     type,
     qual = {
-      if (utils::packageVersion("ggplot2") >= "3.5.0")
+      if (utils::packageVersion("ggplot2") >= "3.5.0") {
         ggplot2::discrete_scale(
           aesthetics,
           palette = datastory_pal(palette, repeat_col, reverse),
           ...
         )
-      else
+      } else {
         ggplot2::discrete_scale(
           aesthetics,
           "datastory_scheme_qual",
           palette = datastory_pal(palette, repeat_col, reverse),
           ...
         )
+      }
     },
     cont = {
       low <- "#ececec"
@@ -442,21 +447,24 @@ scale_fill_datastory <- function(...,
           violet = datastory_violet[1L]
         )
       )
-      if (reverse) seq_cols <- rev(seq_cols)
+      if (reverse) {
+        seq_cols <- rev(seq_cols)
+      }
 
-      if (utils::packageVersion("ggplot2") >= "3.5.0")
+      if (utils::packageVersion("ggplot2") >= "3.5.0") {
         ggplot2::discrete_scale(
           aesthetics,
           palette = grDevices::colorRampPalette(seq_cols),
           ...
         )
-      else
+      } else {
         ggplot2::discrete_scale(
           aesthetics,
           "datastory_scheme_seq",
           palette = grDevices::colorRampPalette(seq_cols),
           ...
         )
+      }
     }
   )
 
@@ -467,14 +475,15 @@ scale_fill_datastory <- function(...,
 #'
 #' @export
 
-scale_color_datastory <- function(...,
-                             palette = "default",
-                             repeat_col = TRUE,
-                             reverse = FALSE,
-                             type = "qual",
-                             grad_col = "blue",
-                             aesthetics = "color") {
-
+scale_color_datastory <- function(
+  ...,
+  palette = "default",
+  repeat_col = TRUE,
+  reverse = FALSE,
+  type = "qual",
+  grad_col = "blue",
+  aesthetics = "color"
+) {
   # Get the list of arguments passed by the user (used for some checks)
   c_args <- as.list(match.call())
 
@@ -485,7 +494,7 @@ scale_color_datastory <- function(...,
 
   # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
   # not set to "seq".
-  if (!(grad_col %in% c("blue", "red"))  && type != "seq") {
+  if (!(grad_col %in% c("blue", "red")) && type != "seq") {
     cli::cli_abort(
       paste0(
         "The colour {grad_col} can only be used for sequential scales (i.e. ",
@@ -509,7 +518,7 @@ scale_color_datastory <- function(...,
 
   # Inform the user that 'palette' and 'repeat_col are ignored when 'type' is
   # not set to "seq".
-  if (any(c("palette", "repeat_col") %in% names(c_args))  && type != "qual") {
+  if (any(c("palette", "repeat_col") %in% names(c_args)) && type != "qual") {
     cli::cli_inform(
       c(
         i = paste0(
@@ -524,19 +533,20 @@ scale_color_datastory <- function(...,
   res_scale <- switch(
     type,
     qual = {
-      if (utils::packageVersion("ggplot2") >= "3.5.0")
+      if (utils::packageVersion("ggplot2") >= "3.5.0") {
         ggplot2::discrete_scale(
           aesthetics,
           palette = datastory_pal(palette, repeat_col, reverse),
           ...
         )
-      else
+      } else {
         ggplot2::discrete_scale(
           aesthetics,
           "datastory_scheme_qual",
           palette = datastory_pal(palette, repeat_col, reverse),
           ...
         )
+      }
     },
     cont = {
       low <- "#ececec"
@@ -571,20 +581,23 @@ scale_color_datastory <- function(...,
           violet = datastory_violet[1L]
         )
       )
-      if (reverse) seq_cols <- rev(seq_cols)
-      if (utils::packageVersion("ggplot2") >= "3.5.0")
+      if (reverse) {
+        seq_cols <- rev(seq_cols)
+      }
+      if (utils::packageVersion("ggplot2") >= "3.5.0") {
         ggplot2::discrete_scale(
           aesthetics,
           palette = grDevices::colorRampPalette(seq_cols),
           ...
         )
-      else
+      } else {
         ggplot2::discrete_scale(
           aesthetics,
           "datastory_scheme_seq",
           palette = grDevices::colorRampPalette(seq_cols),
           ...
         )
+      }
     }
   )
   return(res_scale)

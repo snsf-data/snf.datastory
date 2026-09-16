@@ -20,24 +20,26 @@
 #'  print_num(10000 * pi, "de")
 
 print_num <- function(x, lang = "en") {
-
   if (!(lang %in% c("en", "de", "fr"))) {
     stop("`lang` must match any of 'en', 'de', or 'fr'")
   }
 
   sapply(
     x,
-    \(x)
-    if (x >= 10000) {
-      if (lang == "en")
-        prettyNum(x, big.mark = ",", decimal.mark = ".")
-      else if (lang %in% c("de", "fr"))
-        prettyNum(x, big.mark = "'", decimal.mark = ",")
-    } else {
-      if (lang == "en")
-        prettyNum(x, big.mark = "", decimal.mark = ".")
-      else if (lang %in% c("de", "fr"))
-        prettyNum(x, big.mark = "", decimal.mark = ",")
+    \(x) {
+      if (x >= 10000) {
+        if (lang == "en") {
+          prettyNum(x, big.mark = ",", decimal.mark = ".")
+        } else if (lang %in% c("de", "fr")) {
+          prettyNum(x, big.mark = "'", decimal.mark = ",")
+        }
+      } else {
+        if (lang == "en") {
+          prettyNum(x, big.mark = "", decimal.mark = ".")
+        } else if (lang %in% c("de", "fr")) {
+          prettyNum(x, big.mark = "", decimal.mark = ",")
+        }
+      }
     }
   )
 }
