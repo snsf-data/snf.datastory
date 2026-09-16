@@ -15,7 +15,7 @@ Imports:
     dplyr,
     forcats,
     ggplot2,
-    sysfonts
+    systemfonts
 Suggests:
     showtext
 Encoding: UTF-8
