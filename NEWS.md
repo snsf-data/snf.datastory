@@ -1,4 +1,10 @@
-<!-- NEWS.md is maintained by https://cynkra.github.io/fledge, do not edit -->
+# snf.datastory 0.1.4 (2025-07-07)
+
+- Remove unnecessary dependency to `showtext`
+- R >= 4.1.0 is now required
+- `ggplot2` >= 3.4.0 is now required
+- When creating the ggplot Data Story theme, the argument `size` has been replaced with `linewidth` when calling `ggplot2::element_line()`
+- Fix a problem preventing from properly detecting properly when the "Theinhardt" font is available
 
 # snf.datastory 0.1.4 (2025-07-07)
 
